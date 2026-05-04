@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AquaViva OS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="../img/drop.png">
+</head>
+
+<body>
+
+    <div id="game-cabinet">
+
+        <div id="paper-hotspot" onclick="openNotes()" title="Anotações do Funcionário">
+            <div id="hint-text" style="pointer-events: none;">REGRAS DA EMPRESA<br>▼</div>
+        </div>
+
+        <div id="notes-overlay" style="display: none;">
+            <div class="notes-container">
+                <div class="close-notes" onclick="closeNotes()">FECHAR [X]</div>
+                <img src="../img/folhaDeRegras.png" alt="Regras da Firma">
+                <img src="../img/folhaDeRegras2.png" alt="Padrão de Senhas">
+            </div>
+        </div>
+
+        <div id="monitor-screen">
+
+            <div id="power-screen"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #010101; display: flex; justify-content: center; align-items: center; z-index: 9999; cursor: pointer;"
+                onclick="turnOnMonitor()">
+                <div id="blink-text" style="color: #444; font-size: 20px; border: 2px solid #444; padding: 15px;">[
+                    LIGAR MONITOR ]</div>
+            </div>
+
+
+            <div id="desktop-view">
+                <div class="desktop-icon" onclick="openApp()">
+                    <img src="../img/mailicon.png" alt="E-mail">
+                    <span>AQUAVIVA<br>MAIL</span>
+                </div>
+
+                <div class="desktop-icon" onclick="openVirusApp()">
+                    <img src="../img/virusIcon.png" alt="Vírus">
+                    <span>VIRUS<br>DEFENDER</span>
+                </div>
+
+                <div class="desktop-icon" onclick="openPassApp()">
+                    <img src="../img/senha.png" alt="Criador de Senhas">
+                    <span>AQUATEAMS<br>KEYS</span>
+                </div>
+
+                <div class="desktop-icon" onclick="openDecoderApp()">
+                    <img src="../img/decoderIcon.png" alt="Decoder"> 
+                    <span>AQUA<br>DECODER</span>
+                </div>
+
+                <div id="system-hud">
+                    <div style="text-align: center; margin-bottom: 12px; color: #20c1e9;">GERENCIADOR DO SISTEMA</div>
+                    <div class="hud-row">
+                        <span>INTEGRIDADE:</span>
+                        <div class="bar-bg">
+                            <div id="hp-bar" class="bar-fill hp-fill"></div>
+                        </div>
+                    </div>
+                    <div class="hud-row">
+                        <span>PROGRESSO:</span>
+                        <div class="bar-bg">
+                            <div id="prog-bar" class="bar-fill prog-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="game-over-screen"
+                style="display: none; position: absolute; top:0; left:0; width:100%; height:100%; background:rgba(20,0,0,0.95); z-index: 100000; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <h1 style="color: #ff4757; font-size: 40px; text-shadow: 2px 2px 0 #000;">FALHA CRÍTICA</h1>
+                <p style="color: #ddd; max-width: 600px; line-height: 1.6; margin-bottom: 30px;">A integridade do
+                    sistema chegou a 0%. Os hackers conseguiram acessar o sistema e vazaram todos os dados da empresa.<br><br>Infelizmente você foi demitido.</p>
+                <button id="btn-game-over" onclick="window.location.href='../menu/index.html'">IR PARA O MENU PRINCIPAL</button>
+            </div>
+
+            <div id="game-win-screen"
+                style="display: none; position: absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,20,40,0.95); z-index: 100000; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <h1 style="color: #00ce64; font-size: 40px; text-shadow: 2px 2px 0 #000;">SISTEMA ESTABILIZADO</h1>
+                <p style="color: #ddd; max-width: 600px; line-height: 1.6; margin-bottom: 30px;">Você defendeu a rede
+                    com sucesso. Todos os chamados foram resolvidos e ameaças foram eliminadas e isoladas.<br><br>O CEO Arthur
+                    Valadares mandou um bônus para a sua conta.</p>
+                <button id="btn-game-win" onclick="window.location.href='../menu/index.html'">FINALIZAR TURNO</button>
+            </div>
+
+            <div id="mail-app-view" style="display: none;">
+                <header>
+                    <div class="logo-box">AQUAVIVA MAIL</div>
+
+                    <div class="score-panel" id="score">
+                        OK: 0 | ERRO: 0
+                    </div>
+
+                    <div onclick="closeApp()" class="btn-close">X</div>
+                </header>
+
+                <div class="main-layout">
+                    <div class="email-list" id="list"></div>
+                    <div class="viewer" id="view"></div>
+                </div>
+            </div>
+
+            <div id="virus-app-view"
+                style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #08080a; flex-direction: column; z-index: 100;">
+                <div class="app-header"
+                    style="background: white; border-bottom: 2px solid #000; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-size:10px; font-weight:bold; color: #333;">VIRUS DEFENDER - CENTRAL DE SEGURANÇA
+                    </div>
+                    <div onclick="closeVirusApp()" class="btn-close">X</div>
+                </div>
+
+                <div id="no-attack-screen"
+                    style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                    <div
+                        style="color: #26af61; font-size: 16px; text-align: center; text-shadow: 0 0 10px #26af61; z-index: 10;">
+                        SISTEMA SEGURO<br><br>
+                        <span style="font-size: 10px; color: #888;">NENHUM ATAQUE EM ANDAMENTO.</span>
+                    </div>
+                    <img src="../img/ship2.png" class="flying-ship" alt="Patrulha">
+                </div>
+
+                <iframe id="game-iframe" src=""
+                    style="display: none; flex: 1; border: none; image-rendering: pixelated; width: 100%; height: 100%;"></iframe>
+            </div>
+
+            <div id="pass-app-view"
+                style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #201f1f; flex-direction: column; z-index: 100;">
+                <div class="app-header"
+                    style="background: white; border-bottom: 2px solid #000; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-size:10px; font-weight:bold; color: #333;">AQUATEAMS - SUPORTE</div>
+                    <div onclick="closePassApp()" class="btn-close">X</div>
+                </div>
+                <iframe id="pass-iframe" src="../senha/index.html"
+                    style="flex: 1; border: none; width: 100%; height: 100%;"></iframe>
+            </div>
+
+
+
+            <div id="decoder-app-view"
+                style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; flex-direction: column; z-index: 100;">
+                <div class="app-header"
+                    style="background: white; border-bottom: 2px solid #000; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-size:10px; font-weight:bold; color: #333;">AQUAVIVA - DECODER</div>
+                    <div onclick="closeDecoderApp()" class="btn-close">X</div>
+                </div>
+                <iframe id="decoder-iframe" src="../palavra_cruzada/index.html"
+                    style="flex: 1; border: none; width: 100%; height: 100%;"></iframe>
+            </div>
+
+            <div id="modal">
+                <div class="modal-content">
+                    <div id="m-title"></div>
+                    <div id="m-desc"></div>
+                    <button onclick="closeModal()" class="btn-next">PRÓXIMO</button>
+                </div>
+            </div>
+
+            <div id="notification-popup">
+                <div style="font-weight: bold; font-size: 12px; color: var(--aqua-blue); margin-bottom: 4px;">AQUAVIVA
+                    IT</div>
+                <div style="font-size: 10px; color: #333;">Novo e-mail na caixa!</div>
+            </div>
+
+            <div id="crossword-notification-global">
+                <div class="crossword-title">AQUA DECODER</div>
+                <div id="crossword-notif-text" class="crossword-text">Novo desafio disponível!</div>
+            </div>
+
+            <div id="teams-notification-global">
+                <div style="font-weight: bold; font-size: 12px; color: #7480fa; margin-bottom: 4px;">AQUATEAMS</div>
+                <div id="teams-notif-text" style="font-size: 10px; color: #ddd;">Novo chamado de suporte!</div>
+            </div>
+
+            <div id="virus-notification-global">
+                <div style="font-weight: bold; font-size: 12px; color: #ff4757; margin-bottom: 4px;">VIRUS DEFENDER
+                </div>
+                <div id="virus-notif-text" style="font-size: 10px; color: #ddd;">ALERTA: INVASÃO DETECTADA!</div>
+            </div>
+
+        </div>
+        <div id="monitor-frame"></div>
+
+    </div> <audio id="sound-notification" src="../audio/emailNotification.wav" preload="auto"></audio>
+    <audio id="sound-correct" src="../audio/emailCorrect.wav" preload="auto"></audio>
+    <audio id="sound-error" src="../audio/emailWrong.wav" preload="auto"></audio>
+    <audio id="click-1" src="../audio/mouseClick1.mp3" preload="auto"></audio>
+    <audio id="click-2" src="../audio/mouseClick2.mp3" preload="auto"></audio>
+    <audio id="bg-office" src="../audio/office.mp4" loop preload="auto"></audio>
+    <audio id="bg-calm" src="../audio/calmBackground.mp4" loop preload="auto"></audio>
+
+    <script src="scriptHP.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

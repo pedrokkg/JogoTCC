@@ -1,0 +1,650 @@
+/* =========================================
+   VARIÁVEIS E CONFIGURAÇÕES GERAIS
+   ========================================= */
+:root {
+    --bg-gray: #e8e8e8;
+    --aqua-blue: #539dfc;
+    --btn-green: #00ce64;
+    --btn-red: #ff3c3c;
+    --border: 2px solid #000;
+    --vt323: 'VT323', monospace;
+}
+
+/* =========================================
+   CURSORES CUSTOMIZADOS DA AQUAVIVA
+   ========================================= */
+* {
+    /* Define o cursor padrão para a tela inteira */
+    cursor: url('../img/normalCursor.png') 0 0, auto !important;
+}
+
+/* Todos os elementos interativos ganham o cursor de clique */
+.desktop-icon,
+.desktop-icon *, 
+button, 
+.btn, 
+.btn-close, 
+.email-item, 
+#paper-hotspot, 
+#power-screen, 
+#login-screen,
+.close-notes,
+.btn-next,
+.actions button {
+    cursor: url('../img/clickCursor.png') 0 0, pointer !important;
+}
+
+body {
+    margin: 0; padding: 0;
+    background-color: #111;
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh; overflow: hidden;
+    font-family: 'Press Start 2P', cursive;
+}
+
+/* ==================================================
+   TELA 1: MENU PRINCIPAL (Fica por cima de TUDO)
+   ================================================== */
+#menu-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../img/MenuImage.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 100000;
+    transition: opacity 1.5s ease-out;
+}
+
+#side-menu {
+    width: 400px;
+    height: 80vh;
+    margin-left: 10vw;
+    background: rgba(5, 15, 25, 0.7);
+    border: 2px solid #00d2ff;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 210, 255, 0.3), inset 0 0 15px rgba(0, 210, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    box-sizing: border-box;
+    font-family: var(--vt323);
+}
+
+#menu-title {
+    color: #fff;
+    font-size: 40px;
+    text-shadow: 0 0 10px #00d2ff;
+    text-align: center;
+    border-bottom: 2px solid #00d2ff;
+    padding-bottom: 15px;
+    margin-bottom: 40px;
+    font-family: var(--vt323);
+}
+
+#button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    flex-grow: 1;
+}
+
+.menu-btn {
+    width: 100%;
+    height: 60px;
+    background: transparent;
+    border: 2px solid #00d2ff;
+    color: #00d2ff;
+    font-size: 24px;
+    font-family: var(--vt323);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.1);
+}
+
+.menu-btn:hover {
+    transform: scale(1.05);
+    background: rgba(0, 210, 255, 0.2);
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(0, 210, 255, 0.5), inset 0 0 10px rgba(0, 210, 255, 0.3);
+    text-shadow: 0 0 5px #fff;
+}
+
+#status-line {
+    color: rgba(0, 210, 255, 0.5);
+    font-size: 18px;
+    text-align: center;
+    font-family: var(--vt323);
+}
+
+/* =========================================
+   O CENÁRIO (GIF DA MESA)
+   ========================================= */
+#game-cabinet {
+    position: relative;
+    aspect-ratio: 16 / 9; 
+    width: 100vw;
+    height: 100vh;
+    max-width: 95vw; 
+    background-image: url('../img/MesaTeste2.gif'); 
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    image-rendering: pixelated; 
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
+
+/* =========================================
+   1. A TELA AZUL DO MONITOR (Fundo)
+   ========================================= */
+#monitor-screen {
+    position: absolute;
+    width: 65%;      
+    height: 65%;     
+    top: 14.3%;       
+    left: 17.5%;      
+    
+    /* Deixamos o azul original com 80% de opacidade (rgba) */
+    /* Isso permite que você veja a moldura que está ATRÁS */
+    background: rgba(83, 157, 252, 0.8); 
+    
+    display: flex; 
+    flex-direction: column;
+    overflow: hidden; 
+    
+    z-index: 8000; /* Tela fica na frente */
+    pointer-events: auto; /* Permite clicar na tela normalmente */
+}
+
+/* =========================================
+   2. A MOLDURA DE PLÁSTICO (Fica ATRÁS agora)
+   ========================================= */
+#monitor-frame {
+    position: absolute;
+    width: 96%;      
+    height: 102.5%;     
+    top: -5.25%;       
+    left: 2.12%; 
+    
+    /* A imagem da sua borda (agora ela pode ser sólida no centro, pois está atrás) */
+    background-image: url('../img/borda-monitor.png'); 
+    background-size: 100% 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    z-index: 7000; /* Moldura fica ATRÁS da tela */
+    
+    /* Como ela está atrás, não precisamos de pointer-events: none; */
+    /* O mouse já vai clicar na tela que está na frente naturalmente. */
+}
+
+/* EFEITOS CRT / SCANLINES */
+#monitor-screen::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none; 
+    z-index: 5000; 
+}
+
+/* =========================================
+   DESKTOP (ÁREA DE TRABALHO)
+   ========================================= */
+#desktop-view {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 25px;
+    box-sizing: border-box;
+}
+
+.desktop-icon {
+    width: 80px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 8px;
+    border: 1px dotted transparent;
+}
+
+.desktop-icon img {
+    width: 50px; 
+    height: 50px;
+    image-rendering: pixelated;
+}
+
+.desktop-icon span {
+    color: white;
+    font-size: 10px; 
+    line-height: 1.3;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.desktop-icon:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px dotted white;
+}
+
+/* =========================================
+   APLICATIVOS (INTERFACE COMUM)
+   ========================================= */
+#mail-app-view, #virus-app-view {
+    width: 100%;
+    height: 100%;
+    display: none; 
+    flex-direction: column;
+    background: var(--bg-gray);
+    position: absolute;
+    top: 0; left: 0;
+}
+
+header, .app-header {
+    background: white; border-bottom: var(--border);
+    padding: 8px 12px; display: flex; justify-content: space-between; align-items: center;
+}
+
+.btn-close {
+    background: var(--btn-red);
+    color: white;
+    padding: 4px 8px;
+    border: 1px solid black;
+    font-size: 12px; 
+}
+
+/* =========================================
+   AQUAVIVA MAIL (NOVO LAYOUT)
+   ========================================= */
+.logo-box { 
+    background: var(--aqua-blue); 
+    color: white; 
+    padding: 6px 10px; 
+    font-size: 10px; 
+    border: var(--border);
+}
+
+.score-panel { 
+    background: #fff; 
+    font-size: 10px; 
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.main-layout { 
+    display: flex; 
+    flex: 1; 
+    height: 100%; 
+    overflow: hidden; 
+}
+
+.email-list { 
+    width: 35%; /* Ocupa 35% da tela agora */
+    background: white; 
+    border-right: var(--border); 
+    display: flex; 
+    flex-direction: column; 
+    height: 100%;
+    justify-content: flex-start; 
+    overflow-y: auto; 
+}
+
+.email-item { 
+    min-height: 60px; 
+    flex-shrink: 0; 
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 10px 8px; 
+    border-bottom: 1px solid #ccc; 
+    box-sizing: border-box; overflow: hidden;
+}
+
+.email-item:hover { background: #f0f0f0; }
+.email-item.active { background: #d0e5ff; border-left: 4px solid var(--aqua-blue); padding-left: 4px; }
+
+.item-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 10px; line-height: 1.4; }
+
+.viewer { 
+    flex: 1; /* Ocupa todo o resto do espaço (65%) */
+    padding: 15px; 
+    background: var(--bg-gray); 
+    display: flex; 
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.actions { display: flex; gap: 8px; margin-bottom: 10px; }
+.btn { padding: 10px; border: var(--border); color: white; font-size: 10px; font-family: 'Press Start 2P', cursive; flex: 1;}
+.btn-ok { background: var(--btn-green); }
+.btn-no { background: var(--btn-red); }
+
+/* =========================================
+   VIRUS DEFENDER (IFRAME)
+   ========================================= */
+#virus-app-view { background: #000; }
+#game-iframe { flex: 1; border: none; image-rendering: pixelated; width: 100%; height: 100%; }
+
+/* =========================================
+   MODAL
+   ========================================= */
+#modal { 
+    display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 4000; 
+}
+.modal-content { 
+    background: #1a1a2e; border: 2px solid white; padding: 20px; color: white; 
+    width: 80%; text-align: center; line-height: 1.6; font-size: 12px;
+}
+.btn-next { padding: 10px 20px; font-size: 12px; font-family: 'Press Start 2P', cursive; background: #fff; border: 2px solid #000; margin-top: 20px;}
+
+/* =========================================
+   NOTIFICAÇÃO DE E-MAIL
+   ========================================= */
+#notification-popup {
+    position: absolute;
+    top: 15%; /* Moveu para a faixa central superior */
+    right: -100%;
+    width: 20%; 
+    background: white; 
+    border: 1px solid black;
+    border-left: 3px solid var(--aqua-blue); 
+    padding: 6px 6px; 
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.5);
+    transition: right 0.4s ease-out; 
+    z-index: 4500; 
+    font-size: 10px;
+}
+
+#notification-popup.show {
+    right: 2%; 
+}
+
+/* =========================================
+   ANOTAÇÕES NA MESA E TELAS DE BOOT
+   ========================================= */
+#paper-hotspot {
+    position: absolute; 
+    top: 90%; 
+    left: 0%; 
+    width: 14%; 
+    height: 10%; 
+    z-index: 8001;
+    
+    /* background-color: rgba(255, 0, 0, 0.4); /* Fundo vermelho meio transparente */
+    /*border: 2px dashed red;*/
+}
+#notes-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; display: flex; justify-content: center; align-items: center;
+}
+.notes-container {
+    position: relative; display: flex; gap: 20px; width: 80%; max-height: 85%; justify-content: center;
+}
+.notes-container img { max-width: 48%; object-fit: contain; background: white; padding: 10px; border-radius: 5px; box-shadow: 0 0 30px rgba(0,0,0,1); transform: rotate(-2deg); }
+.notes-container img:nth-child(3) { transform: rotate(3deg); }
+.close-notes { position: absolute; top: -30px; right: 0; color: white; font-size: 18px; font-weight: bold; text-shadow: 2px 2px 0 #000; }
+.close-notes:hover { color: var(--btn-red); }
+
+#power-screen, #login-screen {
+    z-index: 9000; display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #000;
+}
+#blink-text { animation: blink 1.2s infinite; }
+@keyframes blink { 0% { opacity: 0; } 49% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 1; } }
+
+/* =========================================
+   NOTIFICAÇÃO DO AQUATEAMS (SENHAS)
+   ========================================= */
+#teams-notification-global {
+    position: absolute;
+    top: 45%; /* Fica empilhada exatamente abaixo do E-mail */
+    right: -100%;
+    width: 20%; 
+    background: #1f1f1f; /* O cinza escuro do AquaTeams */
+    border: 2px solid #000;
+    border-left: 4px solid #7480fa; /* Filete roxo/azul do app */
+    padding: 6px 6px; 
+    box-shadow: -4px 4px 10px rgba(0,0,0,0.8);
+    transition: right 0.4s ease-out; 
+    z-index: 5000; 
+    font-family: 'Press Start 2P', cursive;
+}
+
+#teams-notification-global.show {
+    right: 2%; 
+}
+
+/* =========================================
+   NOTIFICAÇÃO DE PALAVRA CRUZADA (CROSSWORD)
+   ========================================= */
+#crossword-notification-global {
+    position: absolute;
+    top: 30%; /* Empilhada acima do Teams */
+    right: -100%;
+    width: 25%; 
+    background: #1f1f1f; 
+    border: 2px solid #000;
+    border-left: 4px solid #ffce00; /* Amarelo/Dourado para Desafio */
+    padding: 10px 12px; 
+    box-shadow: -4px 4px 10px rgba(0,0,0,0.8);
+    transition: right 0.4s ease-out; 
+    z-index: 5000; 
+    font-family: 'Press Start 2P', cursive;
+}
+
+#crossword-notification-global.show {
+    right: 2%; 
+}
+
+.crossword-title {
+    font-weight: bold; 
+    font-size: 12px; 
+    color: #ffce00; 
+    margin-bottom: 4px;
+}
+
+.crossword-text {
+    font-size: 10px; 
+    color: #ddd;
+}
+
+/* =========================================
+   DICA FLUTUANTE (TUTORIAL COM NEON GLOW CIANO)
+   ========================================= */
+#hint-text {
+    position: absolute;
+    top: -35px; 
+    left: 50%;
+    transform: translateX(-50%);
+    color: #20c1e9; /* O novo azul AquaViva */
+    font-size: 15px;
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    white-space: nowrap;
+    animation: pulseHint 2s infinite ease-in-out;
+}
+
+/* Animação: Flutua, pisca e muda o tamanho do brilho neon */
+@keyframes pulseHint {
+    0%, 100% { 
+        opacity: 1; 
+        transform: translate(-50%, 0); 
+        /* O segredo do Neon agora em tons de azul/ciano */
+        text-shadow: 
+            2px 2px 0px #000,
+            0 0 5px #20c1e9, 
+            0 0 15px #20c1e9, 
+            0 0 25px #4ddbff; /* Azul um pouquinho mais claro pra ponta da luz */
+    }
+    50% { 
+        opacity: 0.6; 
+        transform: translate(-50%, -5px); 
+        /* Brilho mais fraco e encolhido */
+        text-shadow: 
+            2px 2px 0px #000,
+            0 0 2px #20c1e9, 
+            0 0 8px #20c1e9; 
+    } 
+}
+
+/* =========================================
+   NOTIFICAÇÃO DO VIRUS DEFENDER+
+   ========================================= */
+#virus-notification-global {
+    position: absolute;
+    top: 60%; /* Fica empilhada exatamente abaixo do Teams */
+    right: -100%;
+    width: 25%; 
+    background: #1f1f1f; 
+    border: 2px solid #000;
+    border-left: 4px solid #ff4757; /* Vermelho alerta */
+    padding: 10px 12px; 
+    box-shadow: -4px 4px 15px rgba(255, 71, 87, 0.4);
+    transition: right 0.4s ease-out; 
+    z-index: 5000; 
+    font-family: 'Press Start 2P', cursive;
+}
+
+#virus-notification-global.show {
+    right: 2%; 
+}
+
+/* =========================================
+   ANIMAÇÃO DA NAVE (FÍSICA DE DVD VIA JS)
+   ========================================= */
+.flying-ship {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+    opacity: 0.3;
+    /* O CSS só dita o visual, o movimento agora é 100% controlado pelo JS */
+}
+
+/* =========================================
+   HUD DE INTEGRIDADE E PROGRESSO (WIDGET NO DESKTOP)
+   ========================================= */
+#system-hud {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(10, 10, 15, 0.85);
+    border: 2px solid #555;
+    padding: 15px 20px; /* Mais espaço interno */
+    width: 320px; /* Painel bem mais largo (antes era 250px) */
+    z-index: 1000; /* Z-index baixo para não sobrepor nada importante */
+    font-size: 12px; /* Fonte maior para facilitar a leitura */
+}
+
+.hud-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Mais espaço entre as duas linhas */
+    color: white;
+}
+
+.bar-bg {
+    width: 170px; /* Barras mais compridas */
+    height: 18px; /* Barras mais grossas/altas */
+    background: #222;
+    border: 2px solid #777; /* Borda da barra mais forte */
+    position: relative;
+}
+
+.bar-fill {
+    height: 100%;
+    width: 0%; 
+    transition: width 0.3s ease-out, background-color 0.3s ease;
+}
+
+.hp-fill { background: #00ce64; width: 100%; } 
+.prog-fill { background: #539dfc; width: 0%; }
+
+#typewriter-text {
+    text-shadow: 0 0 8px rgba(38, 175, 97, 0.6);
+    min-height: 150px; /* Garante que o layout não pule quando o texto aumenta */
+}
+
+#intro-terminal span {
+    text-decoration: underline;
+    letter-spacing: 2px;
+}
+
+/* Container lateral para as notificações */
+#notification-sidebar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 99999; /* Fica acima de tudo */
+    pointer-events: none; /* Não atrapalha cliques no que estiver atrás */
+}
+
+/* Estilo base das caixas de notificação */
+.notif-box {
+    display: none; /* Começa escondido, o JS mostra */
+    pointer-events: auto;
+    background: white;
+    border-left: 6px solid var(--aqua-blue);
+    padding: 15px;
+    box-shadow: 6px 6px 0px rgba(0,0,0,0.3);
+    animation: slideInNotif 0.4s ease-out;
+}
+
+/* Cores dos Títulos */
+.notif-title { font-weight: bold; font-size: 11px; color: var(--aqua-blue); margin-bottom: 5px; }
+.notif-title-teams { font-weight: bold; font-size: 11px; color: #7480fa; margin-bottom: 5px; }
+.notif-title-virus { font-weight: bold; font-size: 11px; color: #ff4757; margin-bottom: 5px; }
+.notif-text { font-size: 10px; color: #333; line-height: 1.2; }
+
+/* Bordas coloridas para cada tipo */
+#teams-notification-global { border-left-color: #7480fa; }
+#virus-notification-global { border-left-color: #ff4757; }
+
+/* Animação de entrada */
+@keyframes slideInNotif {
+    from { transform: translateX(110%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* BOTÕES DE FIM DE JOGO */
+#btn-game-over, #btn-game-win {
+    height: auto !important;           /* Mata qualquer altura bizarra que o CSS esteja forçando */
+    width: fit-content !important;     /* Faz o botão ficar do tamanho exato do texto */
+    padding: 15px 30px !important;     /* Espaçamento em cima/baixo e nos lados */
+    font-size: 14px !important;        /* Tamanho da fonte */
+    margin-top: 20px !important;       /* Dá um espaço para não ficar grudado no texto de cima */
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+/* Efeito quando passa o mouse por cima do botão de Game Over */
+#btn-game-over:hover {
+    transform: scale(1.05); /* Dá uma leve aumentada quando passa o mouse */
+}
+
+/* Efeito quando passa o mouse por cima do botão de Vitória */
+#btn-game-win:hover {
+    transform: scale(1.05);
+}

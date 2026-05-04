@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="email-app">
+        <div class="mail-sidebar">
+            <div class="logo-box">AQUA<span>MAIL</span></div>
+            <button class="btn-compose">Escrever</button>
+            <nav>
+                <div class="nav-item active">Entrada (<span id="mail-count">0</span>)</div>
+                <div class="nav-item">Enviados</div>
+                <div class="nav-item">Lixo Eletrônico</div>
+            </nav>
+        </div>
+
+        <div class="email-list" id="email-list">
+            </div>
+
+        <div class="email-viewer" id="email-viewer">
+            <div class="empty-state">
+                <img src="../../img/icon-mail.png" style="opacity: 0.2; width: 50px; margin-bottom: 10px;">
+                <p>Selecione um e-mail para ler</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="decision-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3>Este e-mail é seguro?</h3>
+            <div class="actions">
+                <button class="btn-safe" onclick="decidirEmail(false)">CONFIAR</button>
+                <button class="btn-phishing" onclick="decidirEmail(true)">PHISHING!</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

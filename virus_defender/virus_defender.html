@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cyber Defense: Protocol XL</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="start-menu">
+        <div class="title-gold">CYBER DEFENSE PROTOCOL</div>
+        <div class="instructions">
+            <b>DIAGNÓSTICO DA INVASÃO (AQUAVIVA):</b><br>
+• <b style="color: #71e9a5">Adware Persistente:</b> Lento e irritante. Tenta sobrecarregar sua RAM com processos inúteis.<br>
+• <b style="color: #d56bff">Trojan Remoto:</b> Fica oculto e dispara pacotes de dados maliciosos para abrir brechas no seu Firewall.<br>
+• <b style="color: #c18eff">Ransomware Cripto (45 Logs):</b> O primeiro Boss. Tenta sequestrar seus arquivos com barragens de criptografia.<br>
+• <b style="color: #eb7171">Worm Devastador (90 Logs):</b> O segundo Boss. Extremamente rápido, tenta se replicar e atropelar sua CPU.<br><br>
+<b>MECÂNICAS DE DEFESA:</b><br>
+• <b>Upgrade de Patch:</b> A cada 15 logs, escolha entre novos protocolos ou melhorias de processamento/varredura.<br>
+• <b>Recuperação de Backup:</b> Elimine 10 ameaças sem sofrer brechas (Combo) para restaurar a integridade.<br><br>
+<b>SUA MISSÃO:</b> Proteja a infraestrutura da AquaViva. O sigilo do Projeto Lótus é sua prioridade máxima.<br><br>
+<b>CONTROLES DO TERMINAL:</b> WASD (Navegar) | MOUSE (Atirar) | ESPAÇO (Super Firewall) | Q, E, R, F (Scripts).
+        </div>
+        <button class="play-btn" id="btn-start" onclick="startGame()" disabled>INICIALIZANDO SISTEMAS...</button>
+    </div>
+
+    <div id="ui">
+        <div class="hud-group">
+            <div class="score-text">AMEAÇAS NEUTRALIZADAS: <span id="val-score">0</span></div>
+            <div class="bar-container" title="Integridade do Terminal"><div id="hp-fill"></div></div>
+            <div class="bar-container" title="Carga do Firewall"><div id="super-fill"></div></div>
+            <div id="combo-ui" style="font-size: 12px; margin-top:5px; color:#7bed9f; font-weight: bold;">DEFESA: 0/10</div>
+        </div>
+    </div>
+
+    <div id="boss-ui">
+        <div id="boss-name-id" style="color:#ff4757; font-weight:bold; margin-bottom:5px; text-shadow: 1px 1px 0 #000; font-size: 18px;">INVASOR DE ALTO NÍVEL DETECTADO</div>
+        <div class="boss-bar-bg"><div id="boss-hp-fill"></div></div>
+    </div>
+
+    <div id="abilities-ui">
+        <div class="ability-icon" id="abi-fire"><span class="key-bind">E</span>🚀<div class="cooldown-overlay" id="cd-fire"></div></div>
+        <div class="ability-icon" id="abi-chain"><span class="key-bind">Q</span>⚡<div class="cooldown-overlay" id="cd-chain"></div></div>
+        <div class="ability-icon" id="abi-ice"><span class="key-bind">R</span>🧊<div class="cooldown-overlay" id="cd-ice"></div></div>
+        <div class="ability-icon" id="abi-shield"><span class="key-bind">F</span>🛡️<div class="cooldown-overlay" id="cd-shield"></div></div>
+    </div>
+
+    <div id="skill-menu"><h2 style="margin-top:0; color:#26af61;">UPGRADE DE SEGURANÇA</h2><div id="skill-options"></div></div>
+    
+    <div id="overlay">
+        <h1 style="color:#ff4757; font-size: 25px;">SISTEMA COMPROMETIDO</h1>
+        <p style="color: #ddd; font-size: 12px; line-height: 1.6; max-width: 600px; margin-bottom: 20px;">A AquaViva foi hackeada pela "Vanguarda". Os hackers conseguiram diminuir a integridade do sistema e acessar alguns arquivos.</p>
+        <button onclick="voltarParaDesktop()" class="play-btn">VOLTAR</button>
+    </div>
+
+    <div id="win-overlay">
+        <h1>INVASÃO CONTIDA: SIGILO GARANTIDO</h1>
+        <p>Parabéns, colaborador exemplar! Você neutralizou todos os líderes do grupo "A Vanguarda". Os arquivos do Projeto Lótus permanecem seguros e a distribuição de água continuará como planejado. A AquaViva agradece sua lealdade.</p>
+        <button onclick="voltarParaDesktop()" class="play-btn">VOLTAR AO TRABALHO</button>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>

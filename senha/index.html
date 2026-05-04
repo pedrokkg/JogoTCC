@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>AquaTeams - Gerenciador de Acessos</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="teams-container">
+        <div id="sidebar">
+            <div class="sidebar-header">
+                <h2>AQUACHAT</h2>
+                <span class="status-dot"></span>
+            </div>
+            <div id="contact-list">
+                </div>
+        </div>
+
+        <div id="chat-area">
+            <div id="chat-header">
+                <h3 id="chat-user-name">Aguardando Conexões...</h3>
+                <span id="chat-user-dept">Nenhum chamado ativo</span>
+            </div>
+            
+            <div id="chat-history">
+                <div class="message system-msg">SISTEMA ONLINE. AGUARDANDO SOLICITAÇÕES DA EQUIPE.</div>
+            </div>
+
+            <div id="chat-input-area">
+                <input type="text" id="password-input" placeholder="Aguarde um chamado..." disabled>
+                <button id="send-btn" onclick="enviarSenha()" disabled>ENVIAR</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="teams-notification">
+        <div class="notif-header">NOVO CHAMADO</div>
+        <div class="notif-body" id="notif-text">Você tem uma nova solicitação de senha.</div>
+    </div>
+
+    <audio id="snd-msg" src="../audio/emailNotification.wav" preload="auto"></audio>
+    <audio id="snd-erro" src="../audio/emailWrong.wav" preload="auto"></audio>
+    <audio id="snd-ok" src="../audio/emailCorrect.wav" preload="auto"></audio>
+
+    <script src="tasks.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+body { 
+    margin: 0; 
+    overflow: hidden; 
+    background: #08080a; 
+    font-family: 'Press Start 2P', cursive; /* AQUI ESTÁ A MÁGICA */
+    color: white; 
+    user-select: none; 
+    line-height: 1.5;
+}
+canvas { display: block; image-rendering: pixelated; background: #101014; cursor: crosshair; width: 100vw; height: 100vh; }
+
+/* =========================================
+   TELAS PRINCIPAIS (COM SCROLL VERTICAL)
+   ========================================= */
+#start-menu, #overlay, #win-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; 
+    justify-content: flex-start; /* Permite o scroll descer a partir do topo */
+    overflow-y: auto; /* Liga o scroll vertical na tela */
+    overflow-x: hidden;
+    z-index: 500; text-align: center;
+    padding: 50px 20px; box-sizing: border-box;
+}
+
+#overlay, #win-overlay {
+    display: none; z-index: 1000;
+}
+
+#start-menu { background: rgba(8, 8, 10, 0.98); }
+#overlay { background: rgba(50, 0, 0, 0.95); }
+#win-overlay { background: rgba(0, 30, 60, 0.95); }
+
+/* =========================================
+   SCROLLBAR CUSTOMIZADA PARA AS TELAS
+   ========================================= */
+#start-menu::-webkit-scrollbar,
+#overlay::-webkit-scrollbar,
+#win-overlay::-webkit-scrollbar {
+    width: 8px; /* Barrinha vertical */
+}
+
+#start-menu::-webkit-scrollbar-track,
+#overlay::-webkit-scrollbar-track,
+#win-overlay::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5); 
+    border-radius: 4px;
+}
+
+#start-menu::-webkit-scrollbar-thumb,
+#overlay::-webkit-scrollbar-thumb,
+#win-overlay::-webkit-scrollbar-thumb {
+    background: #26af61; /* Verde hacker */
+    border-radius: 4px;
+}
+
+#start-menu::-webkit-scrollbar-thumb:hover,
+#overlay::-webkit-scrollbar-thumb:hover,
+#win-overlay::-webkit-scrollbar-thumb:hover {
+    background: #fff; 
+}
+
+/* =========================================
+   CONTEÚDO DO MENU
+   ========================================= */
+.title-gold { 
+    font-size: 32px; 
+    color: #26af61; 
+    text-shadow: 2px 2px 0 #000; 
+    margin-bottom: 15px; 
+    font-weight: bold; 
+    flex-shrink: 0;
+}
+
+/* =========================================
+   CONTEÚDO DO MENU
+   ========================================= */
+.instructions { 
+    background: rgba(255,255,255,0.05); 
+    padding: 20px; 
+    border: 1px solid #26af61; 
+    border-radius: 8px; 
+    max-width: 90%; 
+    line-height: 1.6; 
+    margin-bottom: 25px; 
+    color: #ddd; 
+    text-align: left; 
+    box-sizing: border-box;
+    
+    /* AQUI ESTÁ O CONTROLE DE TAMANHO! */
+    font-size: 15px; /* <-- Aumente ou diminua este número (ex: 12px, 14px) */
+    
+    white-space: normal; 
+    word-wrap: break-word;
+    flex-shrink: 0;
+}
+
+/* =========================================
+   CORES DOS INIMIGOS NAS INSTRUÇÕES
+   ========================================= */
+/* O Verde padrão que você já tem para textos de destaque */
+.instructions b { color: #26af61; }
+
+.play-btn { 
+    padding: 12px 30px; 
+    font-size: 16px; 
+    background: #26af61; 
+    color: #000; 
+    border: none; 
+    cursor: pointer; 
+    font-weight: bold; 
+    border-radius: 5px; 
+    transition: 0.3s; 
+    flex-shrink: 0;
+    margin-bottom: 20px;
+}
+.play-btn:hover { transform: scale(1.05); background: #fff; }
+.play-btn:disabled { background: #555; cursor: not-allowed; transform: none; }
+
+/* =========================================
+   HUD E HABILIDADES
+   ========================================= */
+#ui { position: absolute; top: 10px; left: 10px; pointer-events: none; display: none; transform: scale(0.7); transform-origin: top left; }
+.score-text { font-weight: bold; font-size: 14px; margin-bottom: 8px; color: white; text-shadow: 1px 1px 0 #000; }
+.bar-container { width: 200px; height: 14px; background: rgba(0,0,0,0.8); border: 2px solid #57606f; margin-bottom: 5px; border-radius: 4px; overflow: hidden; }
+#hp-fill { height: 100%; background: #26af61; width: 100%; transition: width 0.2s; }
+#super-fill { height: 100%; background: #00d2ff; width: 0%; transition: width 0.2s; }
+
+#boss-ui { position: absolute; top: 10px; left: 50%; transform: translateX(-50%) scale(0.6); display: none; text-align: center; }
+.boss-bar-bg { width: 350px; height: 18px; background: rgba(0,0,0,0.8); border: 2px solid #ff4757; border-radius: 4px; overflow: hidden; }
+#boss-hp-fill { height: 100%; background: #ff4757; width: 100%; transition: width 0.2s; }
+
+#abilities-ui { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%) scale(0.6); display: none; }
+#skill-menu { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.7); background: #1a1a20; border: 5px solid #26af61; padding: 25px; display: none; flex-direction: column; align-items: center; z-index: 600; box-shadow: 0 0 80px rgba(0,0,0,1); border-radius: 15px; width: 400px; text-align: center; }
+.skill-btn { background: #2f3542; color: #fff; border: 2px solid #57606f; padding: 12px 20px; margin: 8px; cursor: pointer; width: 90%; font-family: inherit; font-size: 15px; transition: 0.2s; border-radius: 8px; text-align: left; }
+.skill-btn:hover { background: #26af61; color: #000; border-color: #fff; }
+
+/* =========================================
+   TELAS DE FIM DE JOGO (TEXTOS AUMENTADOS)
+   ========================================= */
+#win-overlay h1 { color: #00d2ff; font-size: 25px; text-shadow: 0 0 15px #00d2ff; margin-bottom: 10px; flex-shrink: 0;}
+#win-overlay p { color: #ddd; font-size: 16px; line-height: 1.6; max-width: 600px; margin-bottom: 20px; white-space: normal; word-wrap: break-word; flex-shrink: 0;}
+
+.death-btn-container { display: flex; gap: 10px; margin-top: 10px; flex-shrink: 0; margin-bottom: 20px;}

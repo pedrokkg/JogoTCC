@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu Principal - AquaViva Corp</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="../img/drop.png">
+</head>
+<body>
+    
+    <div id="menu-screen">
+        <div id="side-menu">
+            <h2 id="menu-title">MENU PRINCIPAL AQUAVIVA CORP</h2>
+            
+            <div id="button-container">
+                <button class="menu-btn" id="play-btn">
+                    <span class="btn-text">INICIAR TURNO</span>
+                </button>
+                <button class="menu-btn" id="difficulty-btn">
+                    <span class="btn-text">DIFICULDADE</span>
+                </button>
+                <button class="menu-btn" id="credits-btn">
+                    <span class="btn-text">CRÉDITOS</span>
+                </button>
+            </div>
+            
+            <div id="status-line">TERMINAL OPERACIONAL - ACESSO AUTORIZADO</div>
+        </div>
+    </div>
+
+    <div id="intro-terminal-screen" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; flex-direction: column; justify-content: center; align-items: center; z-index: 99999;">
+        <div style="width: 80%; max-width: 600px; color: #26af61; font-family: 'Press Start 2P', cursive; font-size: 12px; line-height: 1.8; text-align: left;">
+            <div id="typewriter-text"></div>
+        </div>
+    </div>
+
+    <div id="diff-modal" class="menu-modal" style="display: none;">
+        <div class="modal-box">
+            <h3>NÍVEL DE DIFICULDADE</h3>
+            <div class="radio-group">
+                <label><input type="radio" name="diff" value="1"> 1: BÁSICO (Estagiário)</label>
+                <label><input type="radio" name="diff" value="2" checked> 2: AVANÇADO (Padrão da AquaViva)</label>
+                <label><input type="radio" name="diff" value="3"> 3: CRÍTICO (Ataque da Vanguarda)</label>
+            </div>
+            <button class="close-btn" onclick="closeModals()">SALVAR E VOLTAR</button>
+        </div>
+    </div>
+
+    <div id="cred-modal" class="menu-modal" style="display: none;">
+        <div class="modal-box">
+            <h3>CRÉDITOS</h3>
+            <p>Desenvolvido por: Pedro Garrão e Guilherme França</p>
+            <p>Professor Orientador: Lauro Cavadas</p>
+            <p style="font-size: 16px; margin-top: 20px; color: #888;">AQUAVIVA CORP © 2026</p>
+            <p style="font-size: 16px; margin-top: 20px; color: #888;">UniLasalle-RJ © 2026</p>
+            <button class="close-btn" onclick="closeModals()">VOLTAR</button>
+        </div>
+    </div>
+
+    <audio id="evil-music" loop>
+        <source src="../audio/evilMenuMusic.mp4" type="audio/mp4">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

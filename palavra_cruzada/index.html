@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>AquaViva Decoder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="decoder-container">
+        <div class="header">
+            <h2>SISTEMA DE DESCRIPTOGRAFIA - NÍVEL VERMELHO</h2>
+            <p>Acesso restrito: Helena Rios (Compliance)</p>
+        </div>
+
+        <div class="main-area">
+            <div id="status-message">Aguardando inserção de chave...</div>
+            
+            <div id="word-grid" class="word-grid">
+                </div>
+
+            <div class="controls">
+                <button class="btn btn-action" onclick="checkWord()">VERIFICAR</button>
+                <button class="btn btn-help" onclick="requestHint()">PEDIR DICA</button>
+                <button class="btn btn-help" onclick="revealLetter()">REVELAR LETRA</button>
+            </div>
+        </div>
+
+        <div class="hints-area">
+            <h3>DICAS INTERCEPTADAS:</h3>
+            <ul id="hints-list">
+                </ul>
+        </div>
+    </div>
+
+    <div id="standby-screen" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0a0a0c; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; z-index: 50;">
+        <h2 style="color: #539dfc; margin-bottom: 10px;">SISTEMA OCIOSO</h2>
+        <p style="color: #aaa; font-family: var(--vt323); font-size: 20px;">Nenhum pacote de dados interceptado no momento.<br>Aguarde notificações do sistema.</p>
+    </div>
+
+    <div id="win-screen" style="display: none;">
+        <h1 style="color: #00ce64;">ACESSO LIBERADO</h1>
+        <p>Termo decodificado com sucesso. O sistema principal foi notificado.</p>
+        <button class="btn btn-action" onclick="nextWord()">FECHAR PACOTE</button>
+    </div>
+
+    <audio id="sound-type" src="../../audio/mouseClick1.mp3" preload="auto"></audio>
+    <audio id="sound-win" src="../../audio/emailCorrect.wav" preload="auto"></audio>
+    <audio id="sound-error" src="../../audio/emailWrong.wav" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
